@@ -110,7 +110,8 @@ class TwitchRealtime extends EventEmitter {
                         topic = split[0],
                         channel = split[1];
                     if (typeof msg.data.message === 'string') msg.data.message = JSON.parse(msg.data.message);
-                    if (topic === 'video-playback') {
+
+                    if (topic === this.TOPICS.VIDEOPLAYBACK) {
                         if (msg.data.message.type === 'stream-up') {
                             //noinspection JSUnresolvedVariable
                             /**
@@ -158,7 +159,7 @@ class TwitchRealtime extends EventEmitter {
                                 });
                             }
                         }
-                    } else if (topic.includes('whispers')) {
+                    } else if (topic.includes(this.TOPICS.WHISPERS)) {
                         //noinspection JSUnresolvedVariable
                         /**
                          * Emitted when a new whisper is received.
@@ -197,7 +198,7 @@ class TwitchRealtime extends EventEmitter {
                             nonce: msg.data.message.nonce
                         });
                     } else { //noinspection SpellCheckingInspection
-                        if (topic === 'channel-bitsevents') {
+                        if (topic === this.TOPICS.BITS) {
                             /**
                              * Emitted when some sends a bits.
                              * @event TwitchRealtime#bits
@@ -379,7 +380,7 @@ class TwitchRealtime extends EventEmitter {
         //noinspection SpellCheckingInspection
         return {
             WHISPERS: 'whispers',
-            VIDEOPLAYBACK: 'video-playback',
+            VIDEOPLAYBACK: 'video-playback-by-id',
             BITS: 'channel-bitsevents'
         };
     }
